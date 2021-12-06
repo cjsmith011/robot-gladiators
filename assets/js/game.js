@@ -70,6 +70,10 @@ for(var i = 0; i < enemyNames.length; i++) {
     console.log(enemyNames[i]);
     console.log(i);
     console.log(enemyNames[i] + " is at " + i + " index");
+  else {
+    window.alert("You have lost your robot in battle!  Boo!  Game over!");
+    break;
+  }
   }
 console.log(enemyNames[0]);
 console.log(enemyNames[1]);
