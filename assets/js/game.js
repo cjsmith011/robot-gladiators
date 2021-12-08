@@ -1,5 +1,5 @@
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth = 10;
+var playerHealth = 100;
 var playerAttack = 10;
 var playerMoney = 10;
 
@@ -68,7 +68,7 @@ var fight = function(enemyName) {
 };
 var startGame = function() {
   //reset player stats
-  playerHealth = 10;
+  playerHealth = 100;
   playerAttack = 10;
   playerMoney = 10;
 
@@ -77,7 +77,17 @@ var startGame = function() {
     window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
     var pickedEnemyName = enemyNames[i];
     enemyHealth = 50;
-    fight(pickedEnemyName)
+    fight(pickedEnemyName);
+    
+    //can't shop if there are no enemies
+    if (playerHealth > 0 && i < enemyNames.length - 1) {
+      //see if player wants to shop before next round
+      var storeConfirm = window.confirm("The fight is over, visit our store before the next round?");
+      //if yes, go to the shop
+      if (storeConfirm) {
+      shop();
+    }
+  }
   }
   else {
     window.alert("You have lost your robot in battle!  Boo!  Game over!");
@@ -103,5 +113,44 @@ endGame();
       window.alert("Thank you for playing Robot Gladiators! Come back again!");
     }
   };
-  
+  //shop function
+  var shop = function() {
+    //ask player for their choice
+    var shopOptionPrompt = window.prompt (
+      "Would you like to refill your health, upgrade your attack or leave the store?  Please enter REFILL, UPGRADE OR LEAVE to choose");
+        switch (shopOptionPrompt) {
+          case "REFILL": //new case
+          case "refill":
+            if (playerMoney >= 7) {
+            window.alert("Refilling your health by 20 for 7 dollars.");
+            playerHealth = playerHealth + 20;
+            playerMoney = playerMoney - 7;
+            }
+            else {
+              window.alert("You gots no monies");
+            }
+            break;
+          case "UPGRADE":
+          case "upgrade":
+            if (playerMoney >= 7) {
+            window.alert("Upgrading your attack by 6 for 7 dollars");
+            playerAttack = playerAttack + 6;
+            playerMoney = playerMoney - 7;
+            }
+            else{ 
+              window.alert("You outta money!");
+            }
+            break;
+          case "LEAVE":
+          case "leave":
+            window.alert("You are now leaving the store.");
+            break;
+          default:
+            window.alert("You did not type a valid opton, try again");
+            shop();
+            break;
+
+        }
+    };
+
   startGame();
